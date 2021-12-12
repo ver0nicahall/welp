@@ -1,8 +1,9 @@
+const { ids } = require('webpack');
 const db = require('./database_init');
 
 let helpers = {
-    getAll: (callback) => {
-        let queryString = 'SELECT * FROM choices;'
+    getAll: (data, callback) => {
+        let queryString = 'SELECT * FROM CHOICES'
         db.query(queryString, (err, results) => {
             if (err){
                 callback(err)
@@ -23,7 +24,15 @@ let helpers = {
             })
     },
     deleteOne: (req, res) => {
-       
+       let {restaurant} = data //object destructure
+        let queryString = `DELETE FROM choies WHERE restaurant = '${restaurant}';`
+        db.query(queryString, (err, reuslts) => {
+            if (err) {
+                callback(err)
+            } else {
+                callback(null, results)
+            }
+        })
     },
     updateOne: (req, res) => {
         
